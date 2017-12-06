@@ -1,0 +1,16 @@
+nishit@nishit:~/MAT/try$ clang matrixmult.c
+nishit@nishit:~/MAT/try$ time ./a.out
+
+real	0m0.504s
+user	0m0.500s
+sys	0m0.000s
+nishit@nishit:~/MAT/try$ clang -O0 -emit-llvm -c matrixmult.c
+nishit@nishit:~/MAT/try$ opt -mem2reg matrixmult.bc -o mem2reg.bc
+nishit@nishit:~/MAT/try$ opt -stats -load ../../my_pass/build/arithmetic_pass/libSkeletonPass.so -my-local-opts mem2reg.bc -o withPass.bc
+nishit@nishit:~/MAT/try$ time lli withPass.bc
+
+real	0m0.251s
+user	0m0.244s
+sys	0m0.004s
+
+%Reduction in time = 50%

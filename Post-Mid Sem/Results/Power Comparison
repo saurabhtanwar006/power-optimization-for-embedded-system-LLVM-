@@ -1,0 +1,8 @@
+
+S.No.	Type		Power Without Pass			Power With Pass
+1		Processor	0.658171 W 					0.512492 W				
+2 		Cores		0.658171 W 					0.511807 W
+
+
+%Reduction in Processor = 22.13%
+%Reduction in Cores = 22.23%  

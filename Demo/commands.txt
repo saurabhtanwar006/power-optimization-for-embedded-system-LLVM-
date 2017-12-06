@@ -1,0 +1,25 @@
+cd Demo/
+clear
+gcc matrixmult.c -o O0
+time ./O0
+gcc -O1 matrixmult.c -o O1
+time ./O1
+gcc -O2 matrixmult.c -o O2
+time ./O2
+gcc -O3 matrixmult.c -o O3
+time ./O3
+gcc -Ofast matrixmult.c -o Ofast
+time ./Ofast
+
+clang matrixmult.c -o llO0
+time ./llO0
+
+
+clang -c -emit-llvm matrixmult.c -o mwithoutPass.bc
+opt -mem2reg mwithoutPass.bc -o mmem2reg.bc
+opt -stats -load ../my_pass/build/arithmetic_pass/libSkeletonPass.so -my-local-opts mmem2reg.bc -o mwithPass.bc
+
+time lli mwithPass.bc
+
+llvm-dis mwithoutPass.bc 
+llvm-dis mwithPass.bc 
